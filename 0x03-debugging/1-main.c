@@ -1,21 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "main.h"
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * main - causes an infinite loop
+ * Return: 0
  */
-int main(int ac, char **av)
+
+int main(void)
 {
-	int res;
-	if (ac != 3)
-	{
-		dprintf(2, "Usage: %s filename text\n", av[0]);
-		exit(1);
-	}
-	res = create_file(av[1], av[2]);
-	printf("-> %i)\n", res);
+	int i;
+
+	printf("infinite loop incoing :(\n");
+
+	i = 0;
+
+	/*while (i < 10)*/
+	/*{*/
+	/*	putchar(i);*/
+	/*}*/
+
+	print("infinite loop avoided \\o/\n");
+
 	return (0);
 }
