@@ -6,7 +6,8 @@
 int main(void)
 {
 	int i;
-	i=0;
+
+	i = 0;
 	positive_ornegative(i);
-	retunr (0);
+	retun(0);
 }
