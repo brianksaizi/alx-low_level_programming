@@ -1,17 +1,17 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
+
+char *create_buffer(char *file);
+void close_file(int fd);
+
 /**
- * create_buffer - Allocates 1024 bytes of memory for a buffer.
- * @file: The name of the file that the buffer will be used for.
+ * create_buffer - Allocates 1024 bytes for a buffer.
+ * @file: The name of the file buffer is storing chars for.
  *
  * Return: A pointer to the newly-allocated buffer.
  *
- * Description: This function allocates memory for a buffer of 1024 bytes
- * to be used while copying contents from one file to another.
- * If memory allocation fails, it prints an error message to the standard error
- * and exits the program with exit code 99.
+ * Description: If memory allocation fails, exits with code 99 and prints the error message.
  */
 char *create_buffer(char *file)
 {
@@ -22,7 +22,7 @@ char *create_buffer(char *file)
 	if (buffer == NULL)
 	{
 		dprintf(STDERR_FILENO,
-			"Error: Can't allocate memory for %s buffer\n", file);
+				"Error: Can't write to %s\n", file);
 		exit(99);
 	}
 
@@ -30,22 +30,20 @@ char *create_buffer(char *file)
 }
 
 /**
- * close_file - Closes a file descriptor.
+ * close_file - Closes file descriptors.
  * @fd: The file descriptor to be closed.
  *
- * Description: This function is responsible for closing a file descriptor.
- * If closing the file descriptor fails, it prints an error message to the
- * standard error and exits the program with exit code 100.
+ * Description: If closing the file descriptor fails, exits with code 100 and prints the error message.
  */
 void close_file(int fd)
 {
-	int status;
+	int c;
 
-	status = close(fd);
+	c = close(fd);
 
-	if (status == -1)
+	if (c == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close file descriptor %d\n", fd);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(100);
 	}
 }
@@ -57,15 +55,10 @@ void close_file(int fd)
  *
  * Return: 0 on success.
  *
- * Description: This program copies the contents from one file to another.
- * If the argument count is incorrect, it prints a usage message to the standard
- * error and exits with exit code 97.
- * If the source file (file_from) does not exist or cannot be read, it prints an
- * error message to the standard error and exits with exit code 98.
- * If the destination file (file_to) cannot be created or written to, it prints
- * an error message to the standard error and exits with exit code 99.
- * If closing any of the files fails, it prints an error message to the standard
- * error and exits with exit code 100.
+ * Description: If the argument count is incorrect, exits with code 97 and prints the usage message.
+ * If file_from does not exist or cannot be read, exits with code 98 and prints the error message.
+ * If file_to cannot be created or written to, exits with code 99 and prints the error message.
+ * If file_to or file_from cannot be closed, exits with code 100 and prints the error message.
  */
 int main(int argc, char *argv[])
 {
@@ -87,7 +80,7 @@ int main(int argc, char *argv[])
 		if (from == -1 || r == -1)
 		{
 			dprintf(STDERR_FILENO,
-				"Error: Can't read from file %s\n", argv[1]);
+					"Error: Can't read from file %s\n", argv[1]);
 			free(buffer);
 			exit(98);
 		}
@@ -96,7 +89,7 @@ int main(int argc, char *argv[])
 		if (to == -1 || w == -1)
 		{
 			dprintf(STDERR_FILENO,
-				"Error: Can't write to %s\n", argv[2]);
+					"Error: Can't write to %s\n", argv[2]);
 			free(buffer);
 			exit(99);
 		}
