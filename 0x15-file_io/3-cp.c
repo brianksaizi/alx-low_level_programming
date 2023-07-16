@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <fcntl.h>
 /**
  * create_buffer - Allocates 1024 bytes of memory for a buffer.
  * @file: The name of the file that the buffer will be used for.
