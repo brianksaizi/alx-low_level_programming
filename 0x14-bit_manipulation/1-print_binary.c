@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * print_binary - Prints the binary representation of a number.
- * @n: The number to be converted.
+ * print_binary - displays the binary rep of a given number
+ * @n: the number to be converted
  *
  * Return: void
  */
@@ -12,32 +12,28 @@ void print_binary(unsigned long int n)
 	int start = 0;
 	unsigned int mask = 1073741824;
 
-	/* Check if n is equal to 0 */
 	if (n == 0)
 	{
-		_putchar(48); /* Print '0' */
+		_putchar(48);
 		return;
 	}
 
-	/* Set mask to n if n is greater than the initial mask */
 	if (n > mask)
 		mask = n;
 
-	/* Iterate through each bit using the mask */
 	while (mask > 0)
 	{
-		bit = n & mask; /* Get the current bit */
+		bit = n & mask;
 		if (bit > 0)
-			start = 1; /* Mark the start of significant bits */
+			start = 1;
 
-		/* Print the binary representation */
 		if (start == 1)
 		{
 			if (bit == 0)
-				_putchar(48); /* Print '0' */
+				_putchar(48);
 			else
-				_putchar(49); /* Print '1' */
+				_putchar(49);
 		}
-		mask >>= 1; /* Move to the next bit */
+		mask >>= 1;
 	}
 }
