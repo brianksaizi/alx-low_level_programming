@@ -1,39 +1,30 @@
 #include "main.h"
 
 /**
- * print_binary - displays the binary rep of a given number
- * @n: the number to be converted
- *
- * Return: void
+ * print_binary - Print the binary representation of a decimal number.
+ * @n: The number to be printed in binary.
  */
 void print_binary(unsigned long int n)
 {
-	int bit;
-	int start = 0;
-	unsigned int mask = 1073741824;
+	int i, count = 0;
+	unsigned long int current;
 
-	if (n == 0)
+	/* Iterate through each bit from the most significant to the least */
+	for (i = 63; i >= 0; i--)
 	{
-		_putchar(48);
-		return;
-	}
+		current = n >> i; /* Get the current bit */
 
-	if (n > mask)
-		mask = n;
-
-	while (mask > 0)
-	{
-		bit = n & mask;
-		if (bit > 0)
-			start = 1;
-
-		if (start == 1)
+		/* Print '1' if the bit is set, otherwise print '0' */
+		if (current & 1)
 		{
-			if (bit == 0)
-				_putchar(48);
-			else
-				_putchar(49);
+			_putchar('1');
+			count++;
 		}
-		mask >>= 1;
+		else if (count)
+			_putchar('0');
 	}
+
+	/* If the number was 0, print '0' */
+	if (!count)
+		_putchar('0');
 }
