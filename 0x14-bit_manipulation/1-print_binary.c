@@ -1,26 +1,24 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
- * print_binary - Displays the binary representation of a decimal number
- * @n: The decimal number to be represented in binary
+ * main - Verifies the functionality of the provided code
+ *
+ * Return: Always returns 0 to indicate successful execution.
  */
-void print_binary(unsigned long int n)
+int main(void)
 {
-    int i, count = 0;
-    unsigned long int current;
+	unsigned int n;
 
-    for (i = 63; i >= 0; i--)
-    {
-        current = n >> i;
-
-        if (current & 1)
-        {
-            _putchar('1');
-            count++;
-        }
-        else if (count)
-            _putchar('0');
-    }
-    if (!count)
-        _putchar('0');
+	n = binary_to_uint("1");
+	printf("%u\n", n);
+	n = binary_to_uint("101");
+	printf("%u\n", n);
+	n = binary_to_uint("1e01");
+	printf("%u\n", n);
+	n = binary_to_uint("1100010");
+	printf("%u\n", n);
+	n = binary_to_uint("0000000000000000000110010010");
+	printf("%u\n", n);
+	return (0);
 }
